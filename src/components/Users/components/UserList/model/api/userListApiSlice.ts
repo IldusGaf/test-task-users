@@ -1,11 +1,11 @@
-import { apiSlice } from "../../../../../shared/model/api/apiSlice";
-import { DELETE, PATCH, POST } from "../../../../../shared/const/common";
-import { IReturn } from "../../../../../shared/types";
+import { apiSlice } from "../../../../../../shared/model/api/apiSlice";
+import { DELETE, PATCH, POST } from "../../../../../../shared/const/common";
+import { IReturn } from "../../../../../../shared/types";
 import { User } from "../types/userListTypes";
 
 const userListApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getUserList: builder.query<IReturn<User[] | null>, {}>({
+    getUserList: builder.query<IReturn<User[] | null>, { name: string }>({
       query: (params) => {
         const searchParams = new URLSearchParams();
 
@@ -27,6 +27,29 @@ const userListApiSlice = apiSlice.injectEndpoints({
             ]
           : [{ type: "userList", id: "LIST" }],
     }),
+    getUser: builder.query<IReturn<User | null>, { userId: number }>({
+      query: ({ userId }) => `/user/${userId}`,
+      providesTags: (result) =>
+        result && result.data && result.data.id
+          ? [
+              {
+                type: "userList",
+                id: result.data.id,
+              },
+              {
+                type: "user",
+                id: "LIST",
+              },
+              { type: "userList", id: "LIST" },
+            ]
+          : [
+              { type: "userList", id: "LIST" },
+              {
+                type: "user",
+                id: "LIST",
+              },
+            ],
+    }),
     addUser: builder.mutation<IReturn<User | null>, Omit<User, "id">>({
       query: (formBody) => {
         return {
@@ -42,6 +65,7 @@ const userListApiSlice = apiSlice.injectEndpoints({
                 type: "userList",
                 id: result.data.id,
               },
+              { type: "userList", id: "LIST" },
             ]
           : [{ type: "userList", id: "LIST" }],
     }),
@@ -90,6 +114,7 @@ const userListApiSlice = apiSlice.injectEndpoints({
 export const {
   useGetUserListQuery,
   useAddUserMutation,
+  useGetUserQuery,
   useEditUserMutation,
   useDeleteUserMutation,
 } = userListApiSlice;

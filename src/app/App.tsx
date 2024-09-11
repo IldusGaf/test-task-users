@@ -1,4 +1,4 @@
-import { Breadcrumb, Flex, Layout, Spin, theme } from "antd";
+import { Breadcrumb, Layout, Spin, theme } from "antd";
 import { Header, Content, Footer } from "antd/es/layout/layout";
 import { Navbar } from "../widgets/Navbar";
 import { Outlet } from "react-router-dom";
@@ -40,17 +40,17 @@ function App() {
             }}
           >
             <Outlet />
-            <Flex
+            {/* <Flex
               align="center"
               justify="center"
               style={{ height: "100%", width: "100%" }}
-            >
-              <Spin spinning={isAnythingLoading} delay={200} />
-            </Flex>
+            > */}
+            <Spin spinning={isAnythingLoading} delay={200} fullscreen />
+            {/* <//Flex> */}
           </div>
         </Content>
       </Layout>
-      <Footer>footer</Footer>
+      <Footer>Тестовое задание</Footer>
     </Layout>
   );
 }

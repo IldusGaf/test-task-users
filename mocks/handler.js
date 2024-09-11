@@ -50,6 +50,18 @@ export const handlers = [
     return HttpResponse.json({ data: createdUser, error: null });
   }),
 
+  http.get("/api/user/:id", ({ params }) => {
+    const { id } = params;
+    const findUser = mutableUsers.find((user) => user.id === Number(id));
+    if (!findUser) {
+      return new HttpResponse(
+        { data: null, error: "user is not find" },
+        { status: 404 }
+      );
+    }
+    return HttpResponse.json({ data: findUser, error: null });
+  }),
+
   http.patch("/api/user/:id", async ({ request, params }) => {
     const { id } = params;
     const userUpdates = await request.json();
@@ -76,7 +88,7 @@ export const handlers = [
   http.delete("/api/user/:id", ({ params }) => {
     const { id } = params;
     let deletedUser = null;
-    mutableUsers = users.filter((user) => {
+    mutableUsers = mutableUsers.filter((user) => {
       if (user.id == id) {
         deletedUser = user;
       }

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { UserList } from "../UserList";
+import { UserList } from "../components/UserList";
 import { Flex } from "antd";
-import { RoutePath } from "../../../app/providers/AppRouterProvider/config/routerConfig";
+import { RoutePath } from "../../../shared/config/routerConfig";
 
 export const Users = () => {
   return (
