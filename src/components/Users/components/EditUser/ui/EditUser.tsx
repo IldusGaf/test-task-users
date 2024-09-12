@@ -3,11 +3,11 @@ import { CustomUserType } from "../../../types/customUserType";
 import { useNavigate, useParams } from "react-router-dom";
 import { RoutePath } from "../../../../../shared/config/routerConfig";
 import { UserForm } from "../../../ui/UserForm";
-import {
-  useEditUserMutation,
-  useGetUserQuery,
-} from "../../UserList/model/api/userListApiSlice";
 import dayjs from "dayjs";
+import {
+  useGetUserQuery,
+  useEditUserMutation,
+} from "../../../model/api/userListApiSlice";
 
 export const EditUser = () => {
   const { id } = useParams();
@@ -30,7 +30,6 @@ export const EditUser = () => {
       console.error(error);
     }
   };
-  console.log(dataUser);
 
   return !isErrorUserTypeList &&
     dataUserTypeList?.data?.length &&

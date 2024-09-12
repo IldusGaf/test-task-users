@@ -10,7 +10,6 @@ function App() {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
   const isAnythingLoading = useSelector(getLoading);
-  console.log(isAnythingLoading);
   return (
     <Layout className="app">
       <Header>
@@ -26,11 +25,7 @@ function App() {
             style={{
               margin: "16px 0",
             }}
-          >
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
-          </Breadcrumb>
+          ></Breadcrumb>
           <div
             style={{
               background: colorBgContainer,
@@ -40,13 +35,7 @@ function App() {
             }}
           >
             <Outlet />
-            {/* <Flex
-              align="center"
-              justify="center"
-              style={{ height: "100%", width: "100%" }}
-            > */}
             <Spin spinning={isAnythingLoading} delay={200} fullscreen />
-            {/* <//Flex> */}
           </div>
         </Content>
       </Layout>

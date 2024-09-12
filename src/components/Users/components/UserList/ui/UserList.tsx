@@ -1,23 +1,26 @@
 import { Popconfirm, Space, Table } from "antd";
-import {
-  useDeleteUserMutation,
-  useGetUserListQuery,
-} from "../model/api/userListApiSlice";
 import { ColumnType } from "antd/es/table";
-import { User } from "../model/types/userListTypes";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import { useGetUserTypeListQuery } from "../../../../../shared/model/api/userTypesApiSlice";
-import { UserType } from "../../../../../shared/types/userTypes";
+import { IUserType } from "../../../model/types/userTypes";
+import { selectSelectedFilterData } from "../../UserFilter";
+import { useTypedSelector } from "../../../../../shared/hooks/store";
+import {
+  useGetUserListQuery,
+  useDeleteUserMutation,
+} from "../../../model/api/userListApiSlice";
+import { IUser } from "../../../model/types/userListTypes";
 
 export const UserList = () => {
-  const { data: dataUserList, isError: isErrorUserList } = useGetUserListQuery({
-    name: "",
-  });
+  const selectedFilterData = useTypedSelector(selectSelectedFilterData);
+
+  const { data: dataUserList, isError: isErrorUserList } =
+    useGetUserListQuery(selectedFilterData);
 
   const { data: dataUserTypeList } = useGetUserTypeListQuery();
 
-  const userType: Record<number, UserType> = {};
+  const userType: Record<number, IUserType> = {};
 
   dataUserTypeList?.data?.forEach((element) => {
     userType[element.id] = element;
@@ -35,7 +38,7 @@ export const UserList = () => {
     }
   };
 
-  const columns: ColumnType<User>[] = [
+  const columns: ColumnType<IUser>[] = [
     {
       title: "ID",
       dataIndex: "id",
@@ -85,12 +88,13 @@ export const UserList = () => {
     },
   ];
 
-  return !isErrorUserList && dataUserList?.data?.length ? (
+  return !isErrorUserList && dataUserList?.data ? (
     <Table
       columns={columns}
       dataSource={dataUserList.data}
       size="small"
       rowKey={(record) => record.id}
+      pagination={{ defaultPageSize: 9 }}
     />
   ) : null;
 };

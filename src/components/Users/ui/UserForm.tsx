@@ -1,9 +1,9 @@
 import { Button, DatePicker, Form, FormProps, Input, Select } from "antd";
-import { UserType } from "../../../shared/types/userTypes";
+import { IUserType } from "../model/types/userTypes";
 
-interface UserFormProps<T> {
+interface IUserFormProps<T> {
   onFinish: (value: T) => void;
-  dataUserTypeList: UserType[] | null;
+  dataUserTypeList: IUserType[] | null;
   fields?: FormProps["fields"];
 }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -11,7 +11,7 @@ export const UserForm = <T extends Record<string, any>>({
   onFinish,
   dataUserTypeList,
   fields,
-}: UserFormProps<T>) => {
+}: IUserFormProps<T>) => {
   return (
     <Form
       labelCol={{

@@ -1,10 +1,10 @@
 import { IReturn } from "../../types";
-import { UserType } from "../../types/userTypes";
+import { IUserType } from "../../../components/Users/model/types/userTypes";
 import { apiSlice } from "./apiSlice";
 
 const userTypeListApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getUserTypeList: builder.query<IReturn<UserType[] | null>, void>({
+    getUserTypeList: builder.query<IReturn<IUserType[] | null>, void>({
       query: () => "/userTypes",
       providesTags: (result) =>
         result && result.data

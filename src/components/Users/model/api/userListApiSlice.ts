@@ -1,19 +1,31 @@
-import { apiSlice } from "../../../../../../shared/model/api/apiSlice";
-import { DELETE, PATCH, POST } from "../../../../../../shared/const/common";
-import { IReturn } from "../../../../../../shared/types";
-import { User } from "../types/userListTypes";
+import { POST, PATCH, DELETE } from "../../../../shared/const/common";
+import { apiSlice } from "../../../../shared/model/api/apiSlice";
+import { IReturn } from "../../../../shared/types";
+import { IUserFilterStateType } from "../../components/UserFilter/model/types/userFilterStateType";
+import { IUser } from "../types/userListTypes";
 
 const userListApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getUserList: builder.query<IReturn<User[] | null>, { name: string }>({
+    getUserList: builder.query<
+      IReturn<IUser[] | null>,
+      IUserFilterStateType | null
+    >({
       query: (params) => {
         const searchParams = new URLSearchParams();
+        if (params) {
+          Object.entries(params).forEach((params) => {
+            if (params[1]) {
+              if (!Array.isArray(params[1])) {
+                searchParams.append(params[0], params[1]?.toString());
+              } else {
+                params[1]?.forEach((q) =>
+                  searchParams.append(params[0], String(q))
+                );
+              }
+            }
+          });
+        }
 
-        Object.entries(params).forEach((params) =>
-          !Array.isArray(params[1])
-            ? searchParams.append(params[0], params[1]?.toString() || "")
-            : params[1]?.forEach((q) => searchParams.append(params[0], q))
-        );
         return `/user?${searchParams.toString()}`;
       },
       providesTags: (result) =>
@@ -27,7 +39,7 @@ const userListApiSlice = apiSlice.injectEndpoints({
             ]
           : [{ type: "userList", id: "LIST" }],
     }),
-    getUser: builder.query<IReturn<User | null>, { userId: number }>({
+    getUser: builder.query<IReturn<IUser | null>, { userId: number }>({
       query: ({ userId }) => `/user/${userId}`,
       providesTags: (result) =>
         result && result.data && result.data.id
@@ -50,7 +62,7 @@ const userListApiSlice = apiSlice.injectEndpoints({
               },
             ],
     }),
-    addUser: builder.mutation<IReturn<User | null>, Omit<User, "id">>({
+    addUser: builder.mutation<IReturn<IUser | null>, Omit<IUser, "id">>({
       query: (formBody) => {
         return {
           url: `/user`,
@@ -70,8 +82,8 @@ const userListApiSlice = apiSlice.injectEndpoints({
           : [{ type: "userList", id: "LIST" }],
     }),
     editUser: builder.mutation<
-      IReturn<User | null>,
-      { userId: number } & Partial<Pick<User, "type_id" | "name">>
+      IReturn<IUser | null>,
+      { userId: number } & Partial<Pick<IUser, "type_id" | "name">>
     >({
       query: (formBody) => {
         const { userId, ...formData } = formBody;
@@ -92,7 +104,7 @@ const userListApiSlice = apiSlice.injectEndpoints({
           : [{ type: "userList", id: "LIST" }],
     }),
 
-    deleteUser: builder.mutation<IReturn<User | null>, { userId: number }>({
+    deleteUser: builder.mutation<IReturn<IUser | null>, { userId: number }>({
       query: ({ userId }) => ({
         url: `/user/${userId}`,
         method: DELETE,
