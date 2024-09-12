@@ -1,5 +1,5 @@
 import { Breadcrumb, Layout, Spin, theme } from "antd";
-import { Header, Content, Footer } from "antd/es/layout/layout";
+import { Content, Footer, Header } from "antd/es/layout/layout";
 import { Navbar } from "../widgets/Navbar";
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";

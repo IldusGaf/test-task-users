@@ -1,5 +1,6 @@
-import { Button, DatePicker, Form, FormProps, Input, Select } from "antd";
-import { IUserType } from "../model/types/userTypes";
+import type { FormProps} from "antd";
+import { Button, DatePicker, Form, Input, Select } from "antd";
+import type { IUserType } from "../model/types/userTypes";
 
 interface IUserFormProps<T> {
   onFinish: (value: T) => void;

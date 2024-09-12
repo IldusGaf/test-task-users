@@ -1,6 +1,6 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../../../../../../app/providers/StoreProvider/config/store";
+import type { RootState } from "../../../../../../app/providers/StoreProvider/config/store";
 import type { IUserFilterStateType } from "../types/userFilterStateType";
 import dayjs from "dayjs";
 

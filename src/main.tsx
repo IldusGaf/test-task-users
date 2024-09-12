@@ -8,7 +8,7 @@ async function enableMocking() {
   if (process.env.NODE_ENV !== "development") {
     return;
   }
-  // @ts-ignore
+  // @ts-expect-error Прописал т.к. это требуется для работы mock-backend
   const { worker } = await import("../mocks/browser.js");
   return worker.start();
 }

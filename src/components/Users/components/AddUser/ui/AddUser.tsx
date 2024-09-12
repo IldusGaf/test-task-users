@@ -1,5 +1,5 @@
 import { useGetUserTypeListQuery } from "../../../../../shared/model/api/userTypesApiSlice";
-import { CustomUserType } from "../../../types/customUserType";
+import type { CustomUserType } from "../../../types/customUserType";
 import { useNavigate } from "react-router-dom";
 import { RoutePath } from "../../../../../shared/config/routerConfig";
 import { UserForm } from "../../../ui/UserForm";

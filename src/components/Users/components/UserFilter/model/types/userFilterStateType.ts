@@ -1,4 +1,4 @@
-import { IUser } from "../../../../model/types/userListTypes";
+import type { IUser } from "../../../../model/types/userListTypes";
 
 export type IUserFilterStateType = Partial<
   Pick<IUser, "name" | "type_id"> & {

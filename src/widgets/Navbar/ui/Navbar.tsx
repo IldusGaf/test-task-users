@@ -1,5 +1,5 @@
 import { Menu } from "antd";
-import { MenuItemType } from "antd/es/menu/interface";
+import type { MenuItemType } from "antd/es/menu/interface";
 import { RoutePath } from "../../../shared/config/routerConfig";
 import { useLocation, useNavigate } from "react-router-dom";
 

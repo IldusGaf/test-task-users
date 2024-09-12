@@ -9,7 +9,7 @@ import {
   setSelectedFilterData,
 } from "../model/slices/usersFilterSlice";
 import type { Dayjs } from "dayjs";
-import { IUserFilterStateType } from "../model/types/userFilterStateType";
+import type { IUserFilterStateType } from "../model/types/userFilterStateType";
 import dayjs from "dayjs";
 
 type UserFilterFormType = Omit<IUserFilterStateType, "last_visit_date"> & {

@@ -1,12 +1,12 @@
 import { useGetUserTypeListQuery } from "../../../../../shared/model/api/userTypesApiSlice";
-import { CustomUserType } from "../../../types/customUserType";
+import type { CustomUserType } from "../../../types/customUserType";
 import { useNavigate, useParams } from "react-router-dom";
 import { RoutePath } from "../../../../../shared/config/routerConfig";
 import { UserForm } from "../../../ui/UserForm";
 import dayjs from "dayjs";
 import {
-  useGetUserQuery,
   useEditUserMutation,
+  useGetUserQuery,
 } from "../../../model/api/userListApiSlice";
 
 export const EditUser = () => {

@@ -1,4 +1,4 @@
-import { RouteObject } from "react-router-dom";
+import type { RouteObject } from "react-router-dom";
 import { RoutePath } from "../../../shared/config/routerConfig";
 import { AddUserPage } from "../pages/AddUserPage/index";
 import { UsersPage } from "../ui/UsersPage";

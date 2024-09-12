@@ -1,16 +1,16 @@
 import { Popconfirm, Space, Table } from "antd";
-import { ColumnType } from "antd/es/table";
+import type { ColumnType } from "antd/es/table";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import { useGetUserTypeListQuery } from "../../../../../shared/model/api/userTypesApiSlice";
-import { IUserType } from "../../../model/types/userTypes";
+import type { IUserType } from "../../../model/types/userTypes";
 import { selectSelectedFilterData } from "../../UserFilter";
 import { useTypedSelector } from "../../../../../shared/hooks/store";
 import {
-  useGetUserListQuery,
   useDeleteUserMutation,
+  useGetUserListQuery,
 } from "../../../model/api/userListApiSlice";
-import { IUser } from "../../../model/types/userListTypes";
+import type { IUser } from "../../../model/types/userListTypes";
 
 export const UserList = () => {
   const selectedFilterData = useTypedSelector(selectSelectedFilterData);

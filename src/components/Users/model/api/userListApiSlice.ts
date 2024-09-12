@@ -1,8 +1,8 @@
-import { POST, PATCH, DELETE } from "../../../../shared/const/common";
+import { DELETE, PATCH, POST } from "../../../../shared/const/common";
 import { apiSlice } from "../../../../shared/model/api/apiSlice";
-import { IReturn } from "../../../../shared/types";
-import { IUserFilterStateType } from "../../components/UserFilter/model/types/userFilterStateType";
-import { IUser } from "../types/userListTypes";
+import type { IReturn } from "../../../../shared/types";
+import type { IUserFilterStateType } from "../../components/UserFilter/model/types/userFilterStateType";
+import type { IUser } from "../types/userListTypes";
 
 const userListApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({

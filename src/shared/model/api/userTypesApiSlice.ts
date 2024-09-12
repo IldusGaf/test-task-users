@@ -1,5 +1,5 @@
-import { IReturn } from "../../types";
-import { IUserType } from "../../../components/Users/model/types/userTypes";
+import type { IReturn } from "../../types";
+import type { IUserType } from "../../../components/Users/model/types/userTypes";
 import { apiSlice } from "./apiSlice";
 
 const userTypeListApiSlice = apiSlice.injectEndpoints({
