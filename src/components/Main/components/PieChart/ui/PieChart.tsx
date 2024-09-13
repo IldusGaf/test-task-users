@@ -16,7 +16,6 @@ export const PieChart = (props: HighchartsReact.Props) => {
     dataUserTypeList?.data && mapUserTypeList(dataUserTypeList?.data);
 
   const usersCount = dataUserList?.data?.length || 1;
-  console.log(dataUserList?.data);
   const chartComponentRef = useRef<HighchartsReact.RefObject>(null);
 
   const res: Record<number, { name: string; value: number }> = {};
