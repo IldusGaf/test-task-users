@@ -8,7 +8,6 @@ export const ColumnChart = (props: HighchartsReact.Props) => {
   const { data: dataUserList, isError: isErrorUserList } =
     useGetUserListQuery(null);
 
-  console.log(dataUserList?.data);
   const chartComponentRef = useRef<HighchartsReact.RefObject>(null);
 
   const res: Record<string, number> = {};
