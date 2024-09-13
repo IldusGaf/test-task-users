@@ -1,6 +1,5 @@
 import { Popconfirm, Space, Table } from "antd";
 import type { ColumnType } from "antd/es/table";
-import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import { useGetUserTypeListQuery } from "../../../../../shared/model/api/userTypesApiSlice";
 import type { IUserType } from "../../../model/types/userTypes";
@@ -12,6 +11,8 @@ import {
 } from "../../../model/api/userListApiSlice";
 import type { IUser } from "../../../model/types/userListTypes";
 import { useAuth } from "../../../../../shared/hooks/useAuth";
+import { mapUserTypeList } from "../../../lib/mapUserTypeList";
+import dayjs from "dayjs";
 
 export const UserList = () => {
   const selectedFilterData = useTypedSelector(getSelectedFilterData);
@@ -23,13 +24,8 @@ export const UserList = () => {
 
   const { user, logout } = useAuth();
 
-  const modifydataUserTypeList = dataUserTypeList?.data?.reduce(
-    (acc: Record<number, IUserType>, item) => {
-      acc[item.id] = item;
-      return acc;
-    },
-    {}
-  );
+  const mapUserType =
+    dataUserTypeList?.data && mapUserTypeList(dataUserTypeList?.data);
 
   const userType: Record<number, IUserType> = {};
 
@@ -78,14 +74,13 @@ export const UserList = () => {
       title: "Дата последнего визита",
       dataIndex: "last_visit_date",
       key: "last_visit_date",
-      render: (text) => <span>{format(new Date(text), "dd.MM.yyyy")}</span>,
+      render: (text) => <span>{dayjs(text).format("DD.MM.YYYY")}</span>,
     },
     {
       title: "Действия",
       dataIndex: "operation",
       render: (_, record) => {
-        const allowAllEdit =
-          user && modifydataUserTypeList?.[user.type_id].allow_edit;
+        const allowAllEdit = user && mapUserType?.[user.type_id].allow_edit;
         const allowMySelf = user && user.id === record.id;
         return (user && allowAllEdit) || allowMySelf ? (
           <Space>
@@ -94,7 +89,9 @@ export const UserList = () => {
               title="Вы уверены?"
               onConfirm={() => {
                 onDeleteUser(record.id);
-                logout();
+                if (allowMySelf) {
+                  logout();
+                }
               }}
             >
               <a>Удалить</a>
