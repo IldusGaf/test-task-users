@@ -33,11 +33,11 @@ export const routerConfig = createBrowserRouter([
         path: RoutePath.main,
         element: <MainPage />,
       },
-      ...userRoutes(),
       {
         path: RoutePath.signin,
         element: <SignInPage />,
       },
+      ...userRoutes(),
     ],
   },
 ]);

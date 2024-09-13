@@ -1,11 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, Outlet, useMatch } from "react-router-dom";
 import { UserList } from "../components/UserList";
 import { Flex, Space } from "antd";
 import { RoutePath } from "../../../shared/config/routerConfig";
 import { UserFilter } from "../components/UserFilter";
 
 export const Users = () => {
-  return (
+  const path = useMatch(RoutePath.users);
+  return path ? (
     <Space
       direction="vertical"
       style={{
@@ -21,5 +22,7 @@ export const Users = () => {
       <UserFilter />
       <UserList />
     </Space>
+  ) : (
+    <Outlet />
   );
 };
