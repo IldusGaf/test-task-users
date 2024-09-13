@@ -1,6 +1,4 @@
 export { UserFilter } from "./ui/UserFilter";
-export {
-  // selectSelectableFilterData,
-  selectSelectedFilterData,
-  userFilterReducer,
-} from "./model/slices/usersFilterSlice";
+export { userFilterReducer } from "./model/slices/usersFilterSlice";
+
+export { getSelectedFilterData } from "./model/selectors/getSelectedFilterData";

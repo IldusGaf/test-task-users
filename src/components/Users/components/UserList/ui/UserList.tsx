@@ -4,21 +4,32 @@ import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import { useGetUserTypeListQuery } from "../../../../../shared/model/api/userTypesApiSlice";
 import type { IUserType } from "../../../model/types/userTypes";
-import { selectSelectedFilterData } from "../../UserFilter";
+import { getSelectedFilterData } from "../../UserFilter";
 import { useTypedSelector } from "../../../../../shared/hooks/store";
 import {
   useDeleteUserMutation,
   useGetUserListQuery,
 } from "../../../model/api/userListApiSlice";
 import type { IUser } from "../../../model/types/userListTypes";
+import { useAuth } from "../../../../../shared/hooks/useAuth";
 
 export const UserList = () => {
-  const selectedFilterData = useTypedSelector(selectSelectedFilterData);
+  const selectedFilterData = useTypedSelector(getSelectedFilterData);
 
   const { data: dataUserList, isError: isErrorUserList } =
     useGetUserListQuery(selectedFilterData);
 
   const { data: dataUserTypeList } = useGetUserTypeListQuery();
+
+  const { user, logout } = useAuth();
+
+  const modifydataUserTypeList = dataUserTypeList?.data?.reduce(
+    (acc: Record<number, IUserType>, item) => {
+      acc[item.id] = item;
+      return acc;
+    },
+    {}
+  );
 
   const userType: Record<number, IUserType> = {};
 
@@ -73,17 +84,23 @@ export const UserList = () => {
       title: "Действия",
       dataIndex: "operation",
       render: (_, record) => {
-        return (
+        const allowAllEdit =
+          user && modifydataUserTypeList?.[user.type_id].allow_edit;
+        const allowMySelf = user && user.id === record.id;
+        return (user && allowAllEdit) || allowMySelf ? (
           <Space>
             <Link to={`/users/${record.id}`}>Редактировать</Link>
             <Popconfirm
               title="Вы уверены?"
-              onConfirm={() => onDeleteUser(record.id)}
+              onConfirm={() => {
+                onDeleteUser(record.id);
+                logout();
+              }}
             >
               <a>Удалить</a>
             </Popconfirm>
           </Space>
-        );
+        ) : null;
       },
     },
   ];

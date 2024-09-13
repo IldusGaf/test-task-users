@@ -6,11 +6,18 @@ let mutableUsers = users;
 
 export const handlers = [
   http.post("/api/login", async ({ request }) => {
-    const { username, password } = await request.json();
+    const { login, password } = await request.json();
 
     const user = users.find(
-      (user) => user.login === username && user.password === password
+      (user) => user.login === login && user.password === password
     );
+
+    if (!user) {
+      return HttpResponse.json(
+        { data: null, error: "user is not find" },
+        { status: 401 }
+      );
+    }
 
     return HttpResponse.json({ data: user, error: null });
   }),
@@ -83,7 +90,7 @@ export const handlers = [
   http.post("/api/user", async ({ request }) => {
     const newUser = await request.json();
     if (!Object.keys(newUser).length) {
-      return new HttpResponse(
+      return HttpResponse.json(
         { data: null, error: "invalid body" },
         { status: 404 }
       );
@@ -107,7 +114,7 @@ export const handlers = [
     const { id } = params;
     const findUser = mutableUsers.find((user) => user.id === Number(id));
     if (!findUser) {
-      return new HttpResponse(
+      return HttpResponse.json(
         { data: null, error: "user is not find" },
         { status: 404 }
       );
@@ -121,7 +128,7 @@ export const handlers = [
 
     const updatedKeys = Object.keys(userUpdates);
     if (!updatedKeys.length) {
-      return new HttpResponse(
+      return HttpResponse.json(
         { data: null, error: "invalid body" },
         { status: 404 }
       );
@@ -149,7 +156,7 @@ export const handlers = [
     });
 
     if (!deletedUser) {
-      return new HttpResponse(
+      return HttpResponse.json(
         { data: null, error: `Not found userId=${id}` },
         { status: 404 }
       );
