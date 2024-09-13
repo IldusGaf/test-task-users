@@ -1,16 +1,16 @@
 import { createBrowserRouter } from "react-router-dom";
-import { SignInPage } from "../../pages/SignInPage";
 import App from "../../app/App";
 import { ErrorPage } from "../../pages/ErrorPage";
 import { MainPage } from "../../pages/MainPage";
 import { userRoutes } from "../../pages/UserPages/config/routes";
+import { LoginPage } from "../../pages/LoginPage";
 
 export enum AppRoutes {
   MAIN = "main",
   USERS = "users",
   ADD_USER = "addUser",
   EDIT_USER = "editUser",
-  SIGNIN = "signin",
+  LOGIN = "login",
   NOT_FOUND = "not_found",
 }
 
@@ -19,7 +19,7 @@ export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.USERS]: "/users",
   [AppRoutes.ADD_USER]: "/users/addUser",
   [AppRoutes.EDIT_USER]: "/users/:id",
-  [AppRoutes.SIGNIN]: "/signin",
+  [AppRoutes.LOGIN]: "/login",
   [AppRoutes.NOT_FOUND]: "*",
 };
 
@@ -33,11 +33,11 @@ export const routerConfig = createBrowserRouter([
         path: RoutePath.main,
         element: <MainPage />,
       },
-      ...userRoutes(),
       {
-        path: RoutePath.signin,
-        element: <SignInPage />,
+        path: RoutePath.login,
+        element: <LoginPage />,
       },
+      ...userRoutes(),
     ],
   },
 ]);

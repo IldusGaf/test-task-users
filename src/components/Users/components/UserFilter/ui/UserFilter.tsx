@@ -4,13 +4,11 @@ import {
   useAppDispatch,
   useTypedSelector,
 } from "../../../../../shared/hooks/store";
-import {
-  selectSelectedFilterData,
-  setSelectedFilterData,
-} from "../model/slices/usersFilterSlice";
+import { setSelectedFilterData } from "../model/slices/usersFilterSlice";
 import type { Dayjs } from "dayjs";
 import type { IUserFilterStateType } from "../model/types/userFilterStateType";
 import dayjs from "dayjs";
+import { getSelectedFilterData } from "..";
 
 type UserFilterFormType = Omit<IUserFilterStateType, "last_visit_date"> & {
   last_visit_date?: Dayjs[];
@@ -20,7 +18,7 @@ export const UserFilter = () => {
   const { data: dataUserTypeList, error: isErrorUserTypeList } =
     useGetUserTypeListQuery();
 
-  const initialSelectedFilterData = useTypedSelector(selectSelectedFilterData);
+  const initialSelectedFilterData = useTypedSelector(getSelectedFilterData);
 
   const dispatch = useAppDispatch();
 

@@ -1,15 +1,17 @@
-import { Breadcrumb, Layout, Spin, theme } from "antd";
+import { Layout, Spin, theme } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import { Navbar } from "../widgets/Navbar";
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getLoading } from "../shared/selectors/getLoading";
+import { CustomBreadcrumb } from "../shared/ui/CustomBreadcrumb";
 
 function App() {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
   const isAnythingLoading = useSelector(getLoading);
+
   return (
     <Layout className="app">
       <Header>
@@ -21,11 +23,7 @@ function App() {
             padding: "0 48px",
           }}
         >
-          <Breadcrumb
-            style={{
-              margin: "16px 0",
-            }}
-          ></Breadcrumb>
+          <CustomBreadcrumb />
           <div
             style={{
               background: colorBgContainer,
