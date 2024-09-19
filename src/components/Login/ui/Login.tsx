@@ -1,13 +1,14 @@
 import { useNavigate } from "react-router-dom";
-import type { ILoginRequest} from "../model/api/loginApiSlice";
+import type { ILoginRequest } from "../model/api/loginApiSlice";
 import { useLoginMutation } from "../model/api/loginApiSlice";
 import { RoutePath } from "../../../shared/config/routerConfig";
 import { LoginForm } from "./LoginForm";
 import { setCredentials } from "../model/slices/loginSlice";
 import { useAppDispatch } from "../../../shared/hooks/store";
+import { Flex, Typography } from "antd";
 
 export const Login = () => {
-  const [login] = useLoginMutation();
+  const [login, { isError }] = useLoginMutation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -23,5 +24,14 @@ export const Login = () => {
     }
   };
 
-  return <LoginForm onFinish={onLogin} />;
+  return (
+    <Flex vertical>
+      <LoginForm onFinish={onLogin} />
+      {isError && (
+        <Typography.Text type="danger">
+          Неверный логин или пароль!
+        </Typography.Text>
+      )}
+    </Flex>
+  );
 };
