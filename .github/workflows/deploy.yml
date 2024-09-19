@@ -43,6 +43,8 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
+        env:
+          VITE_BUILD_MODE: ${{secrets.VITE_BUILD_MODE}}
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
