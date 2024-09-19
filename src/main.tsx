@@ -5,9 +5,10 @@ import { AppRouterProvider } from "./app/providers/AppRouterProvider/ui/AppRoute
 import { StoreProvider } from "./app/providers/StoreProvider/index.ts";
 
 async function enableMocking() {
-  if (process.env.NODE_ENV !== "development") {
-    return;
-  }
+  // Закомментил, для того, чтобы залить с раб. mock-backend в github pages
+  // if (process.env.NODE_ENV !== "development") {
+  //   return;
+  // }
   // @ts-expect-error Прописал т.к. это требуется для работы mock-backend
   const { worker } = await import("../mocks/browser.js");
   return worker.start();
