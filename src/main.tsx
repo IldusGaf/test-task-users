@@ -11,7 +11,13 @@ async function enableMocking() {
   // }
   // @ts-expect-error Прописал т.к. это требуется для работы mock-backend
   const { worker } = await import("../mocks/browser.js");
-  return worker.start();
+  return worker.start({
+    serviceWorker: {
+      url: `/${
+        import.meta.env.VITE_BUILD_MODE === "gh-pages" ? "test-task-users/" : ""
+      }mockServiceWorker.js`,
+    },
+  });
 }
 
 enableMocking().then(() =>
