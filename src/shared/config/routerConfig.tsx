@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createHashRouter } from "react-router-dom";
 import App from "../../app/App";
 import { ErrorPage } from "../../pages/ErrorPage";
 import { MainPage } from "../../pages/MainPage";
@@ -23,7 +23,7 @@ export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.NOT_FOUND]: "*",
 };
 
-export const routerConfig = createBrowserRouter([
+export const routerConfig = createHashRouter([
   {
     path: RoutePath.main,
     element: <App />,
